@@ -1,0 +1,69 @@
+# Configuration du modèle
+model:
+  name: "gpt-3.5-turbo"  
+  temperature: 0.3  
+  max_tokens: 600  
+  top_k: 5  # Nombre de documents à récupérer
+  similarity_threshold: 0.75  # Seuil de similarité pour les documents
+
+# Configuration Google Cloud
+google_cloud:
+  project_id: "dauphine-437611"  
+  region: "europe-west1"  
+
+# Configuration Cloud SQL
+database:
+  instance_name: "gen-ai-instance"  
+  database_name: "gen_ai_db"  
+  table_name: "gen-ai-table"  
+  db_user: "students"  
+
+# Configuration Cloud Storage
+cloud_storage:
+  bucket_name: "dauphine-bucket"  
+  table_name: "fb_table"  
+
+# Configuration Streamlit
+streamlit:
+  page_title: "Assistant Médical Avancé"  
+  page_icon: "🏥"  
+  layout: "wide"  
+  theme:
+    primaryColor: "#0066cc"  # Couleur principale
+    backgroundColor: "#ffffff"  # Couleur de fond
+    secondaryBackgroundColor: "#f0f2f6"  # Couleur de fond secondaire
+    textColor: "#262730"  # Couleur du texte
+
+# Paramètres d'évaluation
+evaluation:
+  test_size: 10  # Nombre de tests à effectuer
+  metrics:
+    - similarity_score  
+    - response_time  
+    - cost_per_query  
+  min_acceptable_similarity: 0.75  
+
+# Monitoring
+monitoring:
+  log_level: "DEBUG" 
+  enable_cost_tracking: true  
+  enable_performance_tracking: true  
+  feedback_collection: true  
+
+# Configuration spécifique au dataset LayoutLM
+layoutlm:
+  dataset_path: "C:\Users\sarra\Desktop\medical-chatbot\data\medquad.csv"  # Chemin local vers le dataset LayoutLM
+  api_endpoint: "http://0.0.0.0:8181"  # Endpoint de l'API pour interagir avec le dataset
+  document_types:  # Types de documents disponibles dans le dataset
+    - "Rapport médical"
+    - "Ordonnance"
+    - "Résultats de laboratoire"
+    - "Formulaire d'admission"
+    - "Évaluation médicale"
+  layout_features:  # Fonctionnalités de layout disponibles
+    - "bounding_boxes"
+    - "text_blocks"
+    - "tables"
+  similarity_metric: "cosine"  # Métrique de similarité utilisée pour la recherche de documents
+  max_documents: 10  # Nombre maximum de documents à récupérer pour une question
+  min_confidence: 0.65  # Niveau de confiance minimum pour une réponse

@@ -1,0 +1,28 @@
+# Core dependencies
+streamlit
+fastapi
+pydantic
+uvicorn
+requests
+python-dotenv==1.0.1
+
+# LangChain dependencies
+langchain
+langchain-google-genai
+langchain-google-cloud-sql-pg
+langchain-google-vertexai
+langchain_community
+langchain_unstructured
+
+# Google Cloud dependencies
+google-cloud-storage
+
+# Data processing and embeddings
+unstructured
+numpy
+pandas
+pyyaml
+
+# Embeddings and vector stores
+sentence-transformers
+faiss-cputured
