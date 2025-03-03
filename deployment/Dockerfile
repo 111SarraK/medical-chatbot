@@ -1,0 +1,43 @@
+# Utiliser une image Python 3.10 slim (plus légère)
+FROM python:3.10-slim
+
+
+# Définir le répertoire de travail
+WORKDIR /app
+
+# Copier les fichiers nécessaires
+COPY requirements.txt .
+
+# Copy the rest of the application code into the container
+COPY . /app
+
+
+
+# Installer les dépendances système nécessaires pour LayoutLM
+RUN apt-get update && apt-get install -y \
+    git \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Installer les dépendances Python
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Installer les bibliothèques spécifiques pour LayoutLM
+RUN pip install --no-cache-dir \
+    transformers \
+    datasets \
+    torch \
+    opencv-python-headless \
+    pillow
+
+# Exposer le port 8080
+EXPOSE 8080
+
+# Définir les variables d'environnement pour Streamlit
+ENV STREAMLIT_SERVER_PORT=8080
+ENV STREAMLIT_SERVER_HEADLESS=true
+ENV STREAMLIT_SERVER_ENABLE_CORS=false
+
+# Commande pour démarrer l'application Streamlit
+CMD ["streamlit", "run", "src/chatbot/streamlit_app.py", "--server.port=8080", "--server.headless=true", "--server.enableCORS=false"]
